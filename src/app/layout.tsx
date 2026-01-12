@@ -1,25 +1,28 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "Orbit - AI Powered Cloud-based Code-Editor",
-  description: "Orbit is an AI-powered cloud-based code editor that enhances your coding experience with intelligent features and code completion, with popular development tools.",
+  description:
+    "Orbit is an AI-powered cloud-based code editor that enhances your coding experience with intelligent features and code completion, with popular development tools.",
   icons: {
-    icon: "/favicon.png"
-  }
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -29,13 +32,18 @@ export default function RootLayout({
 }>) {
   return (
     <html 
-      lang="en"
+      lang="en" 
       suppressHydrationWarning={true}
     >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${inter.variable} ${plexMono.variable} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+          enableSystem
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
