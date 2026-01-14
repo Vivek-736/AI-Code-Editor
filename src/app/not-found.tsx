@@ -5,14 +5,13 @@ import { AlertCircleIcon, HomeIcon, SearchIcon } from "lucide-react";
 import {
     Item,
     ItemContent,
-    ItemDescription,
     ItemMedia,
     ItemTitle
 } from "@/components/ui/item";
 
 export default function NotFound() {
     return (
-        <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 text-foreground">
+        <div className="relative font-sans min-h-screen overflow-hidden bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 text-foreground">
             <div className="pointer-events-none absolute -left-10 -top-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
             <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
             <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/10 blur-3xl" />
@@ -23,7 +22,7 @@ export default function NotFound() {
                         <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-black/30 px-4 py-2 shadow-lg">
                             <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white/10">
                                 <Image
-                                    src="/favicon.png"
+                                    src="/favicon.svg"
                                     alt="Orbit icon"
                                     className="object-contain"
                                     width={400}
@@ -45,10 +44,6 @@ export default function NotFound() {
                                 Lost in Space
                             </p>
                         </div>
-
-                        <p className="max-w-lg text-sm text-muted-foreground md:text-base">
-                            The page you&apos;re looking for has drifted beyond our orbit. It may have been moved, deleted, or never existed in this dimension.
-                        </p>
                     </div>
 
                     <Item variant="muted" className="border-white/10 bg-white/5">
@@ -57,11 +52,8 @@ export default function NotFound() {
                         </ItemMedia>
                         <ItemContent>
                             <ItemTitle className="text-base font-semibold text-white">
-                                Page Not Found
+                                Page Not Found <span className="text-sm">: The page you are searching for is lost in the Orbit!</span>
                             </ItemTitle>
-                            <ItemDescription className="text-sm text-slate-200/80">
-                                The URL you entered doesn&apos;t match any existing routes in our system. Check the address or navigate back to a known location.
-                            </ItemDescription>
                         </ItemContent>
                     </Item>
 

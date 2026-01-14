@@ -51,15 +51,15 @@ const ProjectsView = () => {
                 onOpenChange={setCommandDialogOpen}
             />
             
-            <div className="min-h-screen bg-sidebar flex flex-col items-center justify-center p-6 md:p-16">
+            <div className="min-h-screen font-sans bg-sidebar flex flex-col items-center justify-center p-6 md:p-16">
                 <div className="w-full max-w-sm mx-auto flex flex-col gap-4 items-center">
                     <div className="flex justify-between gap-4 w-full items-center">
                         <div className="flex items-center justify-center gap-2 w-full group/logo">
                             <Image 
-                                src={"/favicon.png"}
+                                src={"/favicon.svg"}
                                 alt="Favicon Orbit"
-                                width={50}
-                                height={50}
+                                width={34}
+                                height={34}
                                 className="object-contain"
                             />
                             <h1 className={cn("text-4xl font-bold text-white", font.className)}>
