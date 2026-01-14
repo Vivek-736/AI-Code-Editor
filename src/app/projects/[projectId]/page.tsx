@@ -1,11 +1,10 @@
-const ProjectIdPage = async ({ params }: { params: Promise<{ projectId: string }> }) => {
+import { Id } from "../../../../convex/_generated/dataModel";
+import ProjectIdView from "../_components/project-id-view";
+
+const ProjectIdPage = async ({ params }: { params: Promise<{ projectId: Id<"projects"> }> }) => {
     const { projectId } = await params;
     
-    return (
-        <div className="p-2 text-lg">
-            Project ID Page - {projectId}
-        </div>
-    )
+    return <ProjectIdView projectId={projectId} />;
 }
 
 export default ProjectIdPage;
