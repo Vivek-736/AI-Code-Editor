@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "Orbit is an AI-powered cloud-based code editor that enhances your coding experience with intelligent features and code completion, with popular development tools.",
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.svg",
   },
 };
 

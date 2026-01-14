@@ -57,6 +57,7 @@ export const ProjectsCommandDialog = ({
             onOpenChange={onOpenChange}
             title="Search Projects"
             description="Search and navigate to your projects"
+            className="font-mono"
         >
             <CommandInput placeholder="Search Projects" />
             <CommandList>
