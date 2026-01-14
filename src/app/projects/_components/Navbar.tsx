@@ -1,4 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger
+} from "@/components/ui/tooltip";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -12,6 +19,11 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
+import { UserButton } from "@clerk/nextjs";
+import { useProject, useRenameProject } from "@/hooks/use-projects";
+import { useState } from "react";
+import { CloudCheckIcon, Loader2Icon } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 
 const font = Poppins({
     subsets: ["latin"],
@@ -19,32 +31,118 @@ const font = Poppins({
 })
 
 const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
+    const project = useProject(projectId);
+    const renameProject = useRenameProject(projectId);
+
+    const [renaming, setRenaming] = useState(false);
+    const [name, setName] = useState("");
+
+    const handleStartRename = () => {
+        if (!project) return;
+        setName(project.name);
+        setRenaming(true);
+    }
+
+    const handleSubmit = () => {
+        if (!project) return;
+        setRenaming(false);
+
+        const trimmedName = name.trim();
+        if (!trimmedName || trimmedName === project.name) return;
+
+        renameProject({ id: projectId, name: trimmedName });
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+            handleSubmit();
+        } else if (e.key === "Escape") {
+            setRenaming(false);
+        }
+    }
+
     return (
-        <nav className="flex justify-between items-center gap-x-2 p-2 bg-sidebar border-b">
+        <nav className="flex justify-between font-sans items-center gap-x-2 p-2 bg-sidebar border-b">
             <div className="flex items-center gap-x-2">
                 <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink className="flex items-center gap-1.5" asChild>
-                            <Button 
-                                variant={"ghost"}
-                                className="w-fit! p-1.5! h-10!"
-                                asChild
-                            >
-                                <Link href={"/"}>
-                                    <Image 
-                                        src={"/favicon.svg"}
-                                        alt="Favicon Orbit"
-                                        width={32}
-                                        height={32}
-                                    />
-                                    <span className={cn("text-2xl font-medium text-white", font.className)}>
-                                        Orbit
-                                    </span>
-                                </Link>
-                            </Button>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
+                    <BreadcrumbList className="gap-0!">
+                        <BreadcrumbItem>
+                            <BreadcrumbLink className="flex items-center gap-1.5" asChild>
+                                <Button 
+                                    variant={"ghost"}
+                                    className="w-fit! p-1.5! h-10!"
+                                    asChild
+                                >
+                                    <Link href={"/"}>
+                                        <Image 
+                                            src={"/favicon.svg"}
+                                            alt="Favicon Orbit"
+                                            width={32}
+                                            height={32}
+                                        />
+                                        <span 
+                                            className={cn(
+                                                "text-2xl font-medium text-muted-foreground hover:text-white",
+                                                font.className
+                                            )}
+                                        >
+                                            Orbit
+                                        </span>
+                                    </Link>
+                                </Button>
+                            </BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator className="ml-0! mr-1" />
+                        <BreadcrumbItem>
+                            {renaming ? (
+                                <input 
+                                    type="text"
+                                    autoFocus
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    onFocus={(e) => e.currentTarget.select()}
+                                    onBlur={handleSubmit}
+                                    onKeyDown={handleKeyDown}
+                                    className="text-2xl bg-transparent text-foreground outline-none focus:ring-1 focus:ring-inset focus:ring-ring font-medium max-w-40 truncate"
+                                /> 
+                            ) : (
+                                <BreadcrumbPage
+                                    onClick={handleStartRename}
+                                    className="text-xl mb-0 max-w-40 truncate cursor-pointer hover:text-primary font-medium"
+                                >
+                                    {project?.name || "Loading..."}
+                                </BreadcrumbPage>
+                            )}
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
                 </Breadcrumb>
+                {project?.importStatus === "importing" ? (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Loader2Icon className="text-muted-foreground size-4 animate-spin" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Importing...
+                        </TooltipContent>
+                    </Tooltip>
+                ) : (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <CloudCheckIcon className="text-muted-foreground size-4" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Saved{" "}
+                            {formatDistanceToNow(
+                                project?.updatedAt || new Date(),
+                                { addSuffix: true }
+                            )}
+                        </TooltipContent>
+                    </Tooltip>
+                )}
+            </div>
+
+            <div className="flex items-center gap-2 border-2 border-muted-foreground rounded-full">
+                <UserButton />
             </div>
         </nav>
     )
