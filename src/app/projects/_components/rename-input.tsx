@@ -7,25 +7,23 @@ import {
 } from "@react-symbols/icons/utils";
 import { useState } from "react";
 import { getItemPadding } from "./constants";
+import { cn } from "@/lib/utils";
 
 interface CreateInputProps {
     type: "file" | "folder";
+    defaultValue: string;
+    isOpen?: boolean;
     onSubmit: (name: string) => void;
     level: number;
     onCancel: () => void;
 }
 
-const CreateInput = ({ type, onSubmit, level, onCancel }: CreateInputProps) => {
-    const [value, setValue] = useState("");
+const RenameInput = ({ type, defaultValue,isOpen,  onSubmit, level, onCancel }: CreateInputProps) => {
+    const [value, setValue] = useState(defaultValue);
 
     const handleSubmit = () => {
-        const trimmedValue = value.trim();
-
-        if (trimmedValue) {
-            onSubmit(trimmedValue);
-        } else {
-            onCancel();
-        }
+        const trimmedValue = value.trim() || defaultValue;
+        onSubmit(trimmedValue);
     };
 
     return (
@@ -38,7 +36,10 @@ const CreateInput = ({ type, onSubmit, level, onCancel }: CreateInputProps) => {
             <div className="flex items-center gap-0.5">
                 {type === "folder" && (
                     <ChevronRightIcon 
-                        className="size-4 shrink-0 text-muted-foreground"
+                        className={cn(
+                            "size-4 shrink-0 text-muted-foreground",
+                            isOpen && "rotate-90"
+                        )}
                     />
                 )}
                 {type === "file" && (
@@ -55,7 +56,7 @@ const CreateInput = ({ type, onSubmit, level, onCancel }: CreateInputProps) => {
                     />
                 )}
             </div>
-
+            
             <input 
                 autoFocus
                 type="text"
@@ -71,9 +72,22 @@ const CreateInput = ({ type, onSubmit, level, onCancel }: CreateInputProps) => {
                         onCancel();
                     }
                 }}
+                onFocus={(e) => {
+                    if (type === "folder") {
+                        e.currentTarget.select();
+                    } else {
+                        const value = e.currentTarget.value;
+                        const lastDotIndex = value.lastIndexOf(".");
+                        if (lastDotIndex > 0) {
+                            e.currentTarget.setSelectionRange(0, lastDotIndex);
+                        } else {
+                            e.currentTarget.select();
+                        }
+                    }
+                }}
             />
         </div>
     )
 }
 
-export default CreateInput;
+export default RenameInput;
