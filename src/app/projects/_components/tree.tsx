@@ -17,6 +17,9 @@ import { Id, Doc } from "../../../../convex/_generated/dataModel";
 import { useState } from "react";
 import TreeItemWrapper from "./tree-item-wrapper";
 import RenameInput from "./rename-input";
+import { useEditor } from "@/hooks/use-editor";
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 interface TreeProps {
     item: Doc<"files">;
@@ -32,7 +35,13 @@ const Tree = ({ item, level = 0, projectId }: TreeProps) => {
     const renameFile = useRenameFile();
     const deleteFile = useDeleteFile();
     const createFile = useCreateFile();
-    
+
+    const {
+        openFile,
+        activeTabId,
+        closeTab,
+    } = useEditor(projectId);
+
     const createFolder = useCreateFolder();
 
     const folderContents = useFolderContents({
@@ -70,7 +79,6 @@ const Tree = ({ item, level = 0, projectId }: TreeProps) => {
         }
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const startCreating = (type: "file" | "folder") => {
         setIsOpen(true);
         setCreating(type);
@@ -78,6 +86,7 @@ const Tree = ({ item, level = 0, projectId }: TreeProps) => {
 
     if (item.type === "file") {
         const fileName = item.name;
+        const isActive = activeTabId === item._id;
 
         if (isRenaming) {
             return (
@@ -94,13 +103,13 @@ const Tree = ({ item, level = 0, projectId }: TreeProps) => {
         return (
             <TreeItemWrapper 
                 item={item}
-                isActive={false}
+                isActive={isActive}
                 level={level}
-                onClick={() => {}}
-                onDoubleClick={() => {}}
+                onClick={() => openFile(item._id, { pinned: false })}
+                onDoubleClick={() => openFile(item._id, { pinned: true })}
                 onRename={() => setIsRenaming(true)}
                 onDelete={() => {
-                    // ToDo: Close Tab
+                    closeTab(item._id);
                     deleteFile({ id: item._id })
                 }}
             >
@@ -209,7 +218,6 @@ const Tree = ({ item, level = 0, projectId }: TreeProps) => {
                 onClick={() => setIsOpen((value) => !value)}
                 onRename={() => setIsRenaming(true)}
                 onDelete={() => {
-                    // ToDO: Close Tab
                     deleteFile({ id: item._id })
                 }}
                 onCreateFile={() => setCreating("file")}
