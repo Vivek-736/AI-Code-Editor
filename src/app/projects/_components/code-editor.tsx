@@ -5,10 +5,10 @@ import { EditorView, keymap } from "@codemirror/view";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { indentWithTab } from "@codemirror/commands";
 import { indentationMarkers } from "@replit/codemirror-indentation-markers";
-import { customTheme } from "./extenstions/theme";
-import { getLanguageExtension } from "./extenstions/language-extension";
-import { minimap } from "./extenstions/minimap";
-import { customSetup } from "./extenstions/custom-setup";
+import { customTheme } from "./extensions/theme";
+import { getLanguageExtension } from "./extensions/language-extension";
+import { minimap } from "./extensions/minimap";
+import { customSetup } from "./extensions/custom-setup";
 
 interface CodeEditorProps {
     fileName: string;
