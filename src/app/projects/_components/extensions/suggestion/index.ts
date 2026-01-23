@@ -49,6 +49,8 @@ const generateFakeSuggestion = (textBeforeCursor: string): string | null => {
     if (trimmed.endsWith("const")) return "myVariable = ";
     if (trimmed.endsWith("function")) return " myFunction() { }";
     if (trimmed.endsWith("console.")) return "log()";
+    if (trimmed.endsWith("return")) return " value;";
+    if (trimmed.endsWith("if")) return " (condition) { }";
     return null;
 };
 
