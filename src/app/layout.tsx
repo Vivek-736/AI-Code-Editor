@@ -35,8 +35,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${inter.className} ${plexMono.variable} antialiased`}>
         <Providers>
-          <Toaster />
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>
