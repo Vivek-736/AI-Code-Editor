@@ -21,57 +21,46 @@ const FileBreadcrumbs = ({
     const filePath = useFilePath(activeTabId);
 
     if (filePath === undefined || !activeTabId) {
-        return (
-            <div className="p-2 bg-background pl-4 border-b">
-                <Breadcrumb>
-                    <BreadcrumbList className="sm:gap-0.5 gap-0.5">
-                        <BreadcrumbItem className="text-sm">
-                            <BreadcrumbPage>
-                                &nbsp;
-                            </BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
-            </div>
-        )
+        return null;
     }
 
     return (
-        <div className="p-2 bg-background pl-4 border-b">
-            <Breadcrumb>
-                <BreadcrumbList className="gap-0.5 sm:gap-0.5">
-                    {filePath.map((item, index) => {
-                        const isLast = index === filePath.length - 1;
+        <Breadcrumb>
+            <BreadcrumbList className="gap-1">
+                {filePath.map((item, index) => {
+                    const isLast = index === filePath.length - 1;
 
-                        return (
-                            <React.Fragment key={item._id}>
-                                <BreadcrumbItem
-                                    className="text-sm"
-                                >
-                                    {isLast ? (
-                                        <BreadcrumbPage
-                                            className="flex items-center gap-1"
-                                        >
-                                            <FileIcon 
-                                                fileName={item.name}
-                                                autoAssign
-                                                className="size-4"
-                                            />
-                                            {item.name}
-                                        </BreadcrumbPage>
-                                    ) : (
-                                        <BreadcrumbLink href="#">
-                                            {item.name}
-                                        </BreadcrumbLink>
-                                    )}
-                                </BreadcrumbItem>
-                                {!isLast && <BreadcrumbSeparator />}
-                            </React.Fragment>
-                        )
-                    })}
-                </BreadcrumbList>
-            </Breadcrumb>
-        </div>
+                    return (
+                        <React.Fragment key={item._id}>
+                            <BreadcrumbItem
+                                className="text-xs"
+                            >
+                                {isLast ? (
+                                    <BreadcrumbPage
+                                        className="flex items-center gap-1.5 text-foreground font-medium"
+                                    >
+                                        <FileIcon 
+                                            fileName={item.name}
+                                            autoAssign
+                                            className="size-3.5"
+                                        />
+                                        {item.name}
+                                    </BreadcrumbPage>
+                                ) : (
+                                    <BreadcrumbLink 
+                                        href="#"
+                                        className="text-muted-foreground hover:text-foreground transition-colors"
+                                    >
+                                        {item.name}
+                                    </BreadcrumbLink>
+                                )}
+                            </BreadcrumbItem>
+                            {!isLast && <BreadcrumbSeparator className="text-muted-foreground" />}
+                        </React.Fragment>
+                    )
+                })}
+            </BreadcrumbList>
+        </Breadcrumb>
     );
 };
 

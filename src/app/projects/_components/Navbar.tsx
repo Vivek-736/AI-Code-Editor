@@ -62,27 +62,27 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
     }
 
     return (
-        <nav className="flex justify-between font-sans items-center gap-x-2 p-2 bg-sidebar border-b">
-            <div className="flex items-center gap-x-2">
+        <nav className="flex justify-between font-sans items-center gap-x-4 px-4 py-2 bg-card border-b border-border shadow-sm">
+            <div className="flex items-center gap-x-4">
                 <Breadcrumb>
                     <BreadcrumbList className="gap-0!">
                         <BreadcrumbItem>
-                            <BreadcrumbLink className="flex items-center gap-1.5" asChild>
+                            <BreadcrumbLink className="flex items-center gap-2" asChild>
                                 <Button 
                                     variant={"ghost"}
-                                    className="w-fit! p-1.5! h-10!"
+                                    className="w-fit! p-2! h-10! hover:bg-accent"
                                     asChild
                                 >
                                     <Link href={"/"}>
                                         <Image 
                                             src={"/favicon.svg"}
                                             alt="Favicon Orbit"
-                                            width={32}
-                                            height={32}
+                                            width={28}
+                                            height={28}
                                         />
                                         <span 
                                             className={cn(
-                                                "text-2xl font-medium text-muted-foreground hover:text-white",
+                                                "text-xl font-semibold text-foreground",
                                                 font.className
                                             )}
                                         >
@@ -92,7 +92,7 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
                                 </Button>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
-                        <BreadcrumbSeparator className="ml-0! mr-1" />
+                        <BreadcrumbSeparator className="ml-0! mr-2" />
                         <BreadcrumbItem>
                             {renaming ? (
                                 <input 
@@ -103,12 +103,12 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
                                     onFocus={(e) => e.currentTarget.select()}
                                     onBlur={handleSubmit}
                                     onKeyDown={handleKeyDown}
-                                    className="text-2xl bg-transparent text-foreground outline-none focus:ring-1 focus:ring-inset focus:ring-ring font-medium max-w-40 truncate"
+                                    className="text-lg bg-muted px-2 py-1 rounded text-foreground outline-none focus:ring-2 focus:ring-primary font-medium max-w-40 truncate"
                                 /> 
                             ) : (
                                 <BreadcrumbPage
                                     onClick={handleStartRename}
-                                    className="text-xl mb-0 max-w-40 truncate cursor-pointer hover:text-primary font-medium"
+                                    className="text-lg mb-0 max-w-40 truncate cursor-pointer hover:text-primary font-medium transition-colors"
                                 >
                                     {project?.name || "Loading..."}
                                 </BreadcrumbPage>
@@ -141,8 +141,14 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
                 )}
             </div>
 
-            <div className="flex items-center gap-2 border-2 border-muted-foreground rounded-full">
-                <UserButton />
+            <div className="flex items-center gap-2">
+                <UserButton 
+                    appearance={{
+                        elements: {
+                            avatarBox: "w-8 h-8"
+                        }
+                    }}
+                />
             </div>
         </nav>
     )

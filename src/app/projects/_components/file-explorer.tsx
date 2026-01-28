@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
     ChevronRightIcon, 
     CopyMinusIcon, 
-    FilePlusCornerIcon, 
+    FilePlusIcon, 
     FolderPlusIcon 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -25,7 +25,6 @@ const FileExplorer = ({
     const [isOpen, setIsOpen] = useState(true);
     const [collapseKey, setCollapseKey] = useState(0);
     const [creating, setCreating] = useState<"file" | "folder" | null>(null);
-
     const project = useProject(projectId);
 
     const rootFiles = useFolderContents({
@@ -57,23 +56,23 @@ const FileExplorer = ({
     };
 
     return (
-        <div className="h-full bg-sidebar">
-            <ScrollArea>
+        <div className="h-full bg-sidebar border-r border-border">
+            <ScrollArea className="h-full">
                 <div
                     role="button"
                     onClick={() => setIsOpen((value) => !value)}
-                    className="group/project cursor-pointer w-full text-left flex items-center gap-0.5 h-5.5 bg-accent font-bold"
+                    className="group/project cursor-pointer w-full text-left flex items-center gap-1 h-9 px-2 bg-card/50 font-semibold hover:bg-card/70 transition-colors border-b border-border"
                 >
                     <ChevronRightIcon
                         className={cn(
-                            "size-4 shrink-0 text-muted-foreground",
+                            "size-4 shrink-0 text-muted-foreground transition-transform",
                             isOpen && "rotate-90"
                         )}
                     />
-                    <p className="text-xs uppercase line-clamp-1">
+                    <p className="text-xs uppercase line-clamp-1 tracking-wide text-foreground">
                         {project?.name ?? "Loading..."}
                     </p>
-                    <div className="opacity-0 group-hover/project:opacity-100 transition-none duration-0 flex items-end gap-0.5 ml-auto">
+                    <div className="opacity-0 group-hover/project:opacity-100 transition-opacity flex items-center gap-1 ml-auto">
                         <Button
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -81,10 +80,11 @@ const FileExplorer = ({
                                 setIsOpen(true);
                                 setCreating("file");
                             }}
-                            variant={"highlight"}
+                            variant={"ghost"}
                             size={"icon-xs"}
+                            className="hover:bg-accent"
                         >
-                            <FilePlusCornerIcon 
+                            <FilePlusIcon 
                                 className="size-3.5"
                             />
                         </Button>
@@ -95,8 +95,9 @@ const FileExplorer = ({
                                 setIsOpen(true);
                                 setCreating("folder");
                             }}
-                            variant={"highlight"}
+                            variant={"ghost"}
                             size={"icon-xs"}
+                            className="hover:bg-accent"
                         >
                             <FolderPlusIcon 
                                 className="size-3.5"
@@ -108,8 +109,9 @@ const FileExplorer = ({
                                 e.preventDefault();
                                 setCollapseKey((prev) => prev + 1);
                             }}
-                            variant={"highlight"}
+                            variant={"ghost"}
                             size={"icon-xs"}
+                            className="hover:bg-accent"
                         >
                             <CopyMinusIcon 
                                 className="size-3.5"
@@ -119,7 +121,7 @@ const FileExplorer = ({
                 </div>
                 
                 {isOpen && (
-                    <>
+                    <div className="py-1">
                         {rootFiles === undefined && <LoadingRow level={0} />}
                         {creating && (
                             <CreateInput 
@@ -137,7 +139,7 @@ const FileExplorer = ({
                                 projectId={projectId}
                             />
                         ))}
-                    </>
+                    </div>
                 )}
             </ScrollArea>
         </div>

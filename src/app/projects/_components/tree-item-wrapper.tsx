@@ -50,8 +50,8 @@ const TreeItemWrapper = ({
                         }
                     }}
                     className={cn(
-                        "group flex items-center gap-1 w-full h-5.5 hover:bg-accent/30 outline-none focus:ring-1 focus:ring-inset focus:ring-ring",
-                        isActive && "bg-accent/30"
+                        "group flex items-center gap-2 w-full h-7 hover:bg-accent/50 outline-none focus:ring-1 focus:ring-inset focus:ring-primary rounded-sm transition-colors",
+                        isActive && "bg-accent text-foreground"
                     )}
                     style={{
                         paddingLeft: getItemPadding(level, item.type === "file")
@@ -90,7 +90,7 @@ const TreeItemWrapper = ({
                 </ContextMenuItem>
                 <ContextMenuItem
                     onClick={onDelete}
-                    className="text-sm"
+                    className="text-sm text-destructive focus:text-destructive"
                 >
                     Delete Permanently
                     <ContextMenuShortcut>⌘ Backspace</ContextMenuShortcut>

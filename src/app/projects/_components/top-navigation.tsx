@@ -37,14 +37,14 @@ const Tab = ({
             onClick={() => setActiveTab(fileId)}
             onDoubleClick={() => openFile(fileId, { pinned: true })}
             className={cn(
-                "flex items-center gap-2 h-8.75 pl-2 pr-1.5 cursor-pointer text-muted-foreground group border-y border-x border-transparent hover:bg-accent/30",
-                isActive && "bg-background text-foreground border-x-border border-b-background -mb-px drop-shadow",
-                isFirst && "border-l-transparent!"
+                "flex items-center gap-2 h-9 pl-3 pr-2 cursor-pointer text-muted-foreground group border-r border-border hover:bg-accent/50 transition-colors",
+                isActive && "bg-card text-foreground shadow-sm",
+                isFirst && "border-l-0"
             )}
         >
             {file === undefined ? (
                 <Spinner 
-                    className="text-ring"
+                    className="text-primary"
                 />
             ) : (
                 <FileIcon
@@ -55,7 +55,7 @@ const Tab = ({
             )}
             <span 
                 className={cn(
-                    "text-sm whitespace-nowrap",
+                    "text-sm whitespace-nowrap font-medium",
                     isPreview && "italic"
                 )}
             >
@@ -75,7 +75,7 @@ const Tab = ({
                     }
                 }}
                 className={cn(
-                    "p-0.5 rounded-sm hover:bg-white/10 opacity-0 group-hover:opacity-100",
+                    "p-1 rounded-sm hover:bg-accent/70 opacity-0 group-hover:opacity-100 transition-opacity",
                     isActive && "opacity-100"
                 )}
             >
@@ -90,7 +90,7 @@ const TopNavigation = ({ projectId }: { projectId: Id<"projects"> }) => {
     
     return (
         <ScrollArea className="flex-1">
-            <nav className="bg-sidebar flex items-center h-8.75 border-b">
+            <nav className="bg-card flex items-center h-9 border-b border-border">
                 {openTabs.map((fileId, index) => (
                     <Tab 
                         key={fileId}

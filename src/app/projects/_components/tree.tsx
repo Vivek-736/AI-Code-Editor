@@ -116,9 +116,9 @@ const Tree = ({ item, level = 0, projectId }: TreeProps) => {
                 <FileIcon 
                     fileName={fileName}
                     autoAssign
-                    className="size-4"
+                    className="size-4 shrink-0"
                 />
-                <span className="truncate text-sm">
+                <span className="truncate text-sm font-medium">
                     {fileName}
                 </span>
             </TreeItemWrapper>
@@ -129,19 +129,19 @@ const Tree = ({ item, level = 0, projectId }: TreeProps) => {
 
     const folderRender = (
         <>
-            <div className="flex items-center gap-0.5">
+            <div className="flex items-center gap-1">
                 <ChevronRightIcon 
                     className={cn(
-                        "size-4 shrink-0 text-muted-foreground",
+                        "size-4 shrink-0 text-muted-foreground transition-transform",
                         isOpen && "rotate-90"
                     )}
                 />
                 <FolderIcon 
                     folderName={folderName}
-                    className="size-4"
+                    className="size-4 shrink-0"
                 />
             </div>
-            <span className="truncate text-sm">
+            <span className="truncate text-sm font-medium">
                 {folderName}
             </span>
         </>
