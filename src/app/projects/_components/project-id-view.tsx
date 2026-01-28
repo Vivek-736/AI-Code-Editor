@@ -7,22 +7,34 @@ import { FaGithub } from "react-icons/fa";
 import { Allotment } from "allotment";
 import FileExplorer from "./file-explorer";
 import EditorView from "./editor-view";
+import { CodeIcon, EyeIcon } from "lucide-react";
 
 const MIN_SIDEBAR_WIDTH = 200;
 const MAX_SIDEBAR_WIDTH = 800;
 const DEFAULT_SIDEBAR_WIDTH = 350;
 const DEFAULT_MAIN_SIZE = 1000;
 
-const Tab = ({ label, isActive, onClick }: { label: string; isActive: boolean; onClick: () => void }) => {
+const Tab = ({ 
+    label, 
+    icon: Icon,
+    isActive, 
+    onClick 
+}: { 
+    label: string; 
+    icon: React.ComponentType<{ className?: string }>;
+    isActive: boolean; 
+    onClick: () => void 
+}) => {
     return (
         <div 
             onClick={onClick}
             className={cn(
-                "flex items-center gap-2 h-full px-3 cursor-pointer text-muted-foreground border-r hover:bg-accent/30", 
-                isActive && "bg-background text-foreground",
+                "flex items-center gap-2 h-full px-4 cursor-pointer text-muted-foreground hover:text-foreground hover:bg-accent/30 transition-colors border-b-2 border-transparent", 
+                isActive && "text-primary border-primary bg-accent/20",
             )}
         >
-            <span className="text-sm">{label}</span>
+            <Icon className="size-4" />
+            <span className="text-sm font-medium">{label}</span>
         </div>
     )
 };
@@ -31,25 +43,29 @@ const ProjectIdView = ({ projectId }: { projectId: Id<"projects"> }) => {
     const [activeView, setActiveView] = useState<"editor" | "preview">("editor");
 
     return (
-        <div className="h-full flex flex-col">
-            <nav className="flex items-center bg-sidebar border-b h-8.75">
-                <Tab 
-                    label="Code"
-                    isActive={activeView === "editor"}
-                    onClick={() => setActiveView("editor")}
-                />
-                <Tab 
-                    label="Preview"
-                    isActive={activeView === "preview"}
-                    onClick={() => setActiveView("preview")}
-                />
+        <div className="h-full flex flex-col bg-background">
+            <nav className="flex items-center bg-card border-b border-border h-12 shadow-sm">
+                <div className="flex items-center h-full">
+                    <Tab 
+                        label="Code"
+                        icon={CodeIcon}
+                        isActive={activeView === "editor"}
+                        onClick={() => setActiveView("editor")}
+                    />
+                    <Tab 
+                        label="Preview"
+                        icon={EyeIcon}
+                        isActive={activeView === "preview"}
+                        onClick={() => setActiveView("preview")}
+                    />
+                </div>
                 <div className="flex-1 flex justify-end h-full">
-                    <div className="flex items-center gap-1.5 h-full px-3 cursor-pointer text-muted-foreground border-l hover:bg-accent/30">
-                        <FaGithub className="size-3.5" />
-                        <span className="text-sm">
+                    <button className="flex items-center gap-2 h-full px-4 cursor-pointer text-muted-foreground hover:text-foreground hover:bg-accent/30 transition-colors">
+                        <FaGithub className="size-4" />
+                        <span className="text-sm font-medium">
                             Export
                         </span>
-                    </div>
+                    </button>
                 </div>
             </nav>
 
@@ -82,10 +98,18 @@ const ProjectIdView = ({ projectId }: { projectId: Id<"projects"> }) => {
                     </Allotment>
                 </div>
                 <div className={cn(
-                    "absolute inset-0",
+                    "absolute inset-0 flex items-center justify-center bg-background",
                     activeView === "preview" ? "visible" : "invisible"
                 )}>
-                    <div>Preview</div>
+                    <div className="text-center space-y-4">
+                        <EyeIcon className="size-12 text-muted-foreground mx-auto" />
+                        <div>
+                            <h3 className="text-lg font-semibold text-foreground mb-2">Preview Coming Soon</h3>
+                            <p className="text-sm text-muted-foreground">
+                                Live preview will be available in a future update
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

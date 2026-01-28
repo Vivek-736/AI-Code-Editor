@@ -29,25 +29,35 @@ const EditorView = ({ projectId }: { projectId: Id<"projects"> }) => {
     }, [activeTabId]);
 
     return (
-        <div className="h-full flex flex-col">
-            <div className="flex items-center">
+        <div className="h-full flex flex-col bg-background">
+            <div className="flex items-center border-b border-border bg-card">
                 <TopNavigation
                     projectId={projectId}
                 />
             </div>
-            {activeTabId && <FileBreadcrumbs projectId={projectId} />}
+            {activeTabId && (
+                <div className="px-3 py-1.5 border-b border-border bg-card">
+                    <FileBreadcrumbs projectId={projectId} />
+                </div>
+            )}
             <div className="flex-1 min-h-0 bg-background">
                 {!activeFile && (
                     <div className="size-full flex items-center justify-center">
-                        <Image
-                            src={"/logo-alt.svg"}
-                            alt="Orbit"
-                            width={50}
-                            height={50}
-                            className="opacity-25"
-                        />
+                        <div className="text-center space-y-4">
+                            <Image
+                                src={"/logo-alt.svg"}
+                                alt="Orbit"
+                                width={80}
+                                height={80}
+                                className="opacity-20 mx-auto"
+                            />
+                            <p className="text-muted-foreground text-sm">
+                                Open a file to start editing
+                            </p>
+                        </div>
                     </div>
                 )}
+                
                 {isActiveFileText && (
                     <CodeEditor
                         key={activeFile._id}

@@ -38,28 +38,27 @@ interface ProjectsListProps {
 
 const ContinueCard = ({ data }: { data: Doc<"projects"> }) => {
     return (
-        <div className="flex flex-col gap-2">
-            <span className="text-xs text-muted-foreground">
-                Last Updated
-            </span>
+        <div className="flex flex-col gap-3">
             <Button
                 variant={"outline"}
                 asChild
-                className="h-auto items-start justify-start p-4 bg-background border rounded-none flex flex-col gap-2"
+                className="h-auto items-start justify-start p-5 bg-card border-border hover:border-primary/50 hover:bg-card/80 flex flex-col gap-3 rounded-lg transition-all duration-200"
             >
                 <Link href={`/projects/${data._id}`} className="group">
                     <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-2">
-                            {getProjectIcon(data)}
-                            <span className="font-medium truncate">
+                        <div className="flex items-center gap-2.5">
+                            <div className="p-1.5 rounded-md bg-primary/10">
+                                {getProjectIcon(data)}
+                            </div>
+                            <span className="font-semibold text-base truncate text-foreground">
                                 {data.name}
                             </span>
                         </div>
-                        <ArrowRightIcon className="size-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                        <ArrowRightIcon className="size-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <span className="text-xs text-muted-foreground">
-                        {formatTimeStamp(data.updatedAt)}
-                    </span>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span>Last opened {formatTimeStamp(data.updatedAt)}</span>
+                    </div>
                 </Link>
             </Button>
         </div>
@@ -70,15 +69,15 @@ const ProjectItem = ({ data }: { data: Doc<"projects"> }) => {
     return (
         <Link 
             href={`/projects/${data._id}`}
-            className="text-sm text-foreground/60 font-medium hover:text-foreground py-1 flex items-center justify-between w-full group"
+            className="text-sm text-foreground hover:bg-accent/50 py-2.5 px-3 rounded-md flex items-center justify-between w-full group transition-colors"
         >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
                 {getProjectIcon(data)}
-                <span className="truncate">
+                <span className="truncate font-medium">
                     {data.name}
                 </span>
             </div>
-            <span className="text-xs text-muted-foreground group-hover:text-foreground/60 transition-colors">
+            <span className="text-xs text-muted-foreground">
                 {formatTimeStamp(data.updatedAt)}
             </span>
         </Link>
@@ -98,26 +97,23 @@ const ProjectsList = ({ onViewAll }: ProjectsListProps) => {
         <div className="flex flex-col gap-4">
             {mostRecent ? <ContinueCard data={mostRecent} /> : null}
             {rest.length > 0 && (
-                <div className="flex flex-col gap-2">
-                    <div className="flex items-center justify-between gap-2">
-                        <span className="text-xs text-muted-foreground">
-                            Recent Projects
-                        </span>
-                        <button onClick={onViewAll} className="flex items-center gap-2 text-muted-foreground text-xs hover:text-foreground transition-colors">
-                            <span>view all</span>
-                            <Kbd className="bg-accent border">
+                <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between gap-2 px-1">
+                        <button onClick={onViewAll} className="flex items-center gap-2 text-muted-foreground text-xs hover:text-primary transition-colors">
+                            <span>View all projects</span>
+                            <Kbd className="bg-muted border-border">
                                 ⌘ K
                             </Kbd>
                         </button>
                     </div>
-                    <ul className="flex flex-col">
-                        {projects.map((project) => (
+                    <div className="flex flex-col">
+                        {rest.map((project) => (
                             <ProjectItem 
                                 key={project._id}
                                 data={project}
                             />
                         ))}
-                    </ul>
+                    </div>
                 </div>
             )}
         </div>
