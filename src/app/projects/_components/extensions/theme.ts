@@ -4,7 +4,7 @@ export const customTheme = EditorView.theme({
     "&": {
         outline: "none !important",
         height: "100%",
-        backgroundColor: "#0d1117",
+        backgroundColor: "#000000",
     },
 
     ".cm-content": {
@@ -15,22 +15,22 @@ export const customTheme = EditorView.theme({
 
     ".cm-scroller": {
         scrollbarWidth: "thin",
-        scrollbarColor: "#30363d #0d1117",
+        scrollbarColor: "#30363d #000000",
     },
 
     ".cm-gutters": {
-        backgroundColor: "#0d1117",
+        backgroundColor: "#000000",
         borderRight: "1px solid #21262d",
         color: "#8b949e",
     },
 
     ".cm-activeLineGutter": {
-        backgroundColor: "#161b22",
+        backgroundColor: "#111111",
         color: "#e6edf3",
     },
 
     ".cm-activeLine": {
-        backgroundColor: "#161b22",
+        backgroundColor: "#0a0a0a",
     },
 
     ".cm-selectionBackground, ::selection": {
