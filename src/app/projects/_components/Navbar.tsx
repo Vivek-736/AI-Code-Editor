@@ -62,27 +62,27 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
     }
 
     return (
-        <nav className="flex justify-between font-sans items-center gap-x-4 px-4 py-2 bg-card border-b border-border shadow-sm">
+        <nav className="flex justify-between font-sans items-center gap-x-4 px-4 py-2 bg-background border-b border-border h-10">
             <div className="flex items-center gap-x-4">
                 <Breadcrumb>
-                    <BreadcrumbList className="gap-0!">
+                    <BreadcrumbList className="gap-0 sm:gap-0">
                         <BreadcrumbItem>
                             <BreadcrumbLink className="flex items-center gap-2" asChild>
-                                <Button 
+                                <Button
                                     variant={"ghost"}
-                                    className="w-fit! p-2! h-10! hover:bg-accent"
+                                    className="w-fit! p-1! h-7 opacity-70 hover:opacity-100 hover:bg-transparent"
                                     asChild
                                 >
                                     <Link href={"/"}>
-                                        <Image 
+                                        <Image
                                             src={"/favicon.svg"}
                                             alt="Favicon Orbit"
-                                            width={28}
-                                            height={28}
+                                            width={20}
+                                            height={20}
                                         />
-                                        <span 
+                                        <span
                                             className={cn(
-                                                "text-xl font-semibold text-foreground",
+                                                "text-sm font-semibold text-foreground hidden md:block",
                                                 font.className
                                             )}
                                         >
@@ -92,10 +92,10 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
                                 </Button>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
-                        <BreadcrumbSeparator className="ml-0! mr-2" />
+                        <BreadcrumbSeparator className="mx-2 text-muted-foreground/40" />
                         <BreadcrumbItem>
                             {renaming ? (
-                                <input 
+                                <input
                                     type="text"
                                     autoFocus
                                     value={name}
@@ -103,12 +103,12 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
                                     onFocus={(e) => e.currentTarget.select()}
                                     onBlur={handleSubmit}
                                     onKeyDown={handleKeyDown}
-                                    className="text-lg bg-muted px-2 py-1 rounded text-foreground outline-none focus:ring-2 focus:ring-primary font-medium max-w-40 truncate"
-                                /> 
+                                    className="text-sm bg-transparent px-2 py-0.5 -ml-2 rounded text-foreground outline-none border border-primary font-medium max-w-40 truncate"
+                                />
                             ) : (
                                 <BreadcrumbPage
                                     onClick={handleStartRename}
-                                    className="text-lg mb-0 max-w-40 truncate cursor-pointer hover:text-primary font-medium transition-colors"
+                                    className="text-sm mb-0 max-w-40 truncate cursor-pointer text-foreground/80 hover:text-foreground hover:bg-muted/50 px-2 py-0.5 -ml-2 rounded transition-colors"
                                 >
                                     {project?.name || "Loading..."}
                                 </BreadcrumbPage>
@@ -116,36 +116,26 @@ const Navbar = ({ projectId }: { projectId: Id<"projects"> }) => {
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
-                {project?.importStatus === "importing" ? (
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Loader2Icon className="text-muted-foreground size-4 animate-spin" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            Importing...
-                        </TooltipContent>
-                    </Tooltip>
-                ) : (
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <CloudCheckIcon className="text-muted-foreground size-4" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            Saved{" "}
-                            {formatDistanceToNow(
-                                project?.updatedAt || new Date(),
-                                { addSuffix: true }
-                            )}
-                        </TooltipContent>
-                    </Tooltip>
-                )}
+                <div className="flex items-center">
+                    {project?.importStatus === "importing" ? (
+                        <div className="flex items-center gap-1.5 px-2">
+                            <Loader2Icon className="text-muted-foreground size-3 animate-spin" />
+                            <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">Importing</span>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-1.5 px-2 opacity-0 hover:opacity-100 transition-opacity">
+                            <CloudCheckIcon className="text-emerald-500/50 size-3" />
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div className="flex items-center gap-2">
-                <UserButton 
+                <UserButton
                     appearance={{
                         elements: {
-                            avatarBox: "w-8 h-8"
+                            avatarBox: "w-6 h-6",
+                            rootBox: "flex items-center"
                         }
                     }}
                 />
