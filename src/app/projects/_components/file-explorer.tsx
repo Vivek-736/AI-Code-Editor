@@ -1,11 +1,11 @@
 'use client';
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { 
-    ChevronRightIcon, 
-    CopyMinusIcon, 
-    FilePlusIcon, 
-    FolderPlusIcon 
+import {
+    ChevronRightIcon,
+    CopyMinusIcon,
+    FilePlusIcon,
+    FolderPlusIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -18,9 +18,9 @@ import LoadingRow from "./loading-row";
 import Tree from "./tree";
 
 const FileExplorer = ({
-    projectId 
-}: { 
-    projectId: Id<"projects"> 
+    projectId
+}: {
+    projectId: Id<"projects">
 }) => {
     const [isOpen, setIsOpen] = useState(true);
     const [collapseKey, setCollapseKey] = useState(0);
@@ -45,7 +45,7 @@ const FileExplorer = ({
                 content: "",
                 parentId: undefined,
             });
-        } 
+        }
         else {
             createFolder({
                 projectId,
@@ -56,23 +56,25 @@ const FileExplorer = ({
     };
 
     return (
-        <div className="h-full bg-sidebar border-r border-border">
+        <div className="h-full border-r border-border bg-background">
             <ScrollArea className="h-full">
-                <div
-                    role="button"
-                    onClick={() => setIsOpen((value) => !value)}
-                    className="group/project cursor-pointer w-full text-left flex items-center gap-1 h-9 px-2 bg-card/50 font-semibold hover:bg-card/70 transition-colors border-b border-border"
-                >
-                    <ChevronRightIcon
-                        className={cn(
-                            "size-4 shrink-0 text-muted-foreground transition-transform",
-                            isOpen && "rotate-90"
-                        )}
-                    />
-                    <p className="text-xs uppercase line-clamp-1 tracking-wide text-foreground">
-                        {project?.name ?? "Loading..."}
-                    </p>
-                    <div className="opacity-0 group-hover/project:opacity-100 transition-opacity flex items-center gap-1 ml-auto">
+                <div className="flex items-center gap-1 h-10 px-2 border-b border-border bg-background">
+                    <div
+                        role="button"
+                        onClick={() => setIsOpen((value) => !value)}
+                        className="group/project cursor-pointer flex-1 flex items-center gap-1 font-medium hover:text-foreground transition-colors text-muted-foreground"
+                    >
+                        <ChevronRightIcon
+                            className={cn(
+                                "size-4 shrink-0 transition-transform",
+                                isOpen && "rotate-90"
+                            )}
+                        />
+                        <p className="text-sm line-clamp-1 tracking-tight">
+                            {project?.name ?? "Loading..."}
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-0.5">
                         <Button
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -81,11 +83,10 @@ const FileExplorer = ({
                                 setCreating("file");
                             }}
                             variant={"ghost"}
-                            size={"icon-xs"}
-                            className="hover:bg-accent"
+                            className="size-6 p-0 hover:bg-muted/50 data-[state=open]:bg-muted/50"
                         >
-                            <FilePlusIcon 
-                                className="size-3.5"
+                            <FilePlusIcon
+                                className="size-3.5 text-muted-foreground"
                             />
                         </Button>
                         <Button
@@ -96,11 +97,10 @@ const FileExplorer = ({
                                 setCreating("folder");
                             }}
                             variant={"ghost"}
-                            size={"icon-xs"}
-                            className="hover:bg-accent"
+                            className="size-6 p-0 hover:bg-muted/50"
                         >
-                            <FolderPlusIcon 
-                                className="size-3.5"
+                            <FolderPlusIcon
+                                className="size-3.5 text-muted-foreground"
                             />
                         </Button>
                         <Button
@@ -110,21 +110,20 @@ const FileExplorer = ({
                                 setCollapseKey((prev) => prev + 1);
                             }}
                             variant={"ghost"}
-                            size={"icon-xs"}
-                            className="hover:bg-accent"
+                            className="size-6 p-0 hover:bg-muted/50"
                         >
-                            <CopyMinusIcon 
-                                className="size-3.5"
+                            <CopyMinusIcon
+                                className="size-3.5 text-muted-foreground"
                             />
                         </Button>
                     </div>
                 </div>
-                
+
                 {isOpen && (
                     <div className="py-1">
                         {rootFiles === undefined && <LoadingRow level={0} />}
                         {creating && (
-                            <CreateInput 
+                            <CreateInput
                                 type={creating}
                                 onSubmit={handleCreate}
                                 level={0}
@@ -132,7 +131,7 @@ const FileExplorer = ({
                             />
                         )}
                         {rootFiles?.map((item) => (
-                            <Tree 
+                            <Tree
                                 key={`${item._id}-${collapseKey}`}
                                 item={item}
                                 level={0}

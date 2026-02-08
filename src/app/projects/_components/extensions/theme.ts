@@ -10,39 +10,39 @@ export const customTheme = EditorView.theme({
     ".cm-content": {
         fontFamily: "var(--font-plex-mono), monospace",
         fontSize: "14px",
-        caretColor: "#58a6ff",
+        caretColor: "#3b82f6",
     },
 
     ".cm-scroller": {
         scrollbarWidth: "thin",
-        scrollbarColor: "#30363d #000000",
+        scrollbarColor: "#27272a #000000",
     },
 
     ".cm-gutters": {
         backgroundColor: "#000000",
-        borderRight: "1px solid #21262d",
-        color: "#8b949e",
+        borderRight: "1px solid #27272a",
+        color: "#71717a",
     },
 
     ".cm-activeLineGutter": {
-        backgroundColor: "#111111",
-        color: "#e6edf3",
+        backgroundColor: "#18181b",
+        color: "#e4e4e7",
     },
 
     ".cm-activeLine": {
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "#18181b40",
     },
 
     ".cm-selectionBackground, ::selection": {
-        backgroundColor: "#1f6feb40 !important",
+        backgroundColor: "#3b82f640 !important",
     },
 
     "&.cm-focused .cm-selectionBackground, &.cm-focused ::selection": {
-        backgroundColor: "#1f6feb40 !important",
+        backgroundColor: "#3b82f640 !important",
     },
 
     ".cm-cursor, .cm-dropCursor": {
-        borderLeftColor: "#58a6ff",
+        borderLeftColor: "#3b82f6",
     },
 
     ".cm-line": {
