@@ -35,4 +35,11 @@ export default defineSchema({
     }).index("by_project", ["projectId"])
       .index("by_parent", ["parentId"])
       .index("by_project_parent", ["projectId", "parentId"]),
+
+    messages: defineTable({
+        projectId: v.id("projects"),
+        role: v.union(v.literal("user"), v.literal("assistant")),
+        content: v.string(),
+        createdAt: v.number(),
+    }).index("by_project", ["projectId"]),
 });

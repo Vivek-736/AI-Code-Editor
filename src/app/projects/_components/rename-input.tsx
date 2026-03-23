@@ -22,7 +22,7 @@ const RenameInput = ({ type, defaultValue,isOpen,  onSubmit, level, onCancel }: 
     const [value, setValue] = useState(defaultValue);
 
     const handleSubmit = () => {
-        const trimmedValue = value.trim() || defaultValue;
+        const trimmedValue = (value || "").trim() || defaultValue;
         onSubmit(trimmedValue);
     };
 
