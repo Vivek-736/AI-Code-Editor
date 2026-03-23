@@ -7,7 +7,7 @@ import TopNavigation from "./top-navigation";
 import FileBreadcrumbs from "./file-breadcrumbs";
 import { useFile, useUpdateFile } from "@/hooks/use-files";
 import CodeEditor from "./code-editor";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const DEBOUNCE_DELAY = 1500;
 
@@ -35,12 +35,10 @@ const EditorView = ({ projectId }: { projectId: Id<"projects"> }) => {
                     projectId={projectId}
                 />
             </div>
-            {activeTabId && (
-                <div className="px-3 py-1.5 border-b border-border bg-black">
-                    <FileBreadcrumbs projectId={projectId} />
-                </div>
-            )}
-            <div className="flex-1 min-h-0 bg-black">
+            <div className="px-3 py-1.5 border-b border-border bg-black flex justify-between items-center">
+                <FileBreadcrumbs projectId={projectId} />
+            </div>
+            <div className="flex-1 min-h-0 bg-black overflow-hidden relative">
                 {!activeFile && (
                     <div className="size-full flex items-center justify-center">
                         <div className="text-center space-y-4">

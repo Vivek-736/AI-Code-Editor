@@ -45,82 +45,82 @@
 
 :root {
   --radius: 0.375rem;
-  /* VS Code GitHub Dark Theme Colors */
-  --background: #0d1117;
-  --foreground: #e6edf3;
-  --card: #161b22;
-  --card-foreground: #e6edf3;
-  --popover: #161b22;
-  --popover-foreground: #e6edf3;
-  --primary: #2f81f7;
+  /* VS Code Dark Violet Theme Colors */
+  --background: #0B0914;
+  --foreground: #e4e4e7;
+  --card: #110E1C;
+  --card-foreground: #e4e4e7;
+  --popover: #110E1C;
+  --popover-foreground: #e4e4e7;
+  --primary: #8b5cf6;
   --primary-foreground: #ffffff;
-  --secondary: #21262d;
-  --secondary-foreground: #e6edf3;
-  --muted: #161b22;
-  --muted-foreground: #8b949e;
-  --accent: #1f6feb;
-  --accent-foreground: #ffffff;
-  --destructive: #f85149;
-  --border: #30363d;
-  --separator-border: #21262d;
-  --input: #0d1117;
-  --ring: #1f6feb;
-  --chart-1: #2f81f7;
-  --chart-2: #3fb950;
-  --chart-3: #a371f7;
-  --chart-4: #d29922;
-  --chart-5: #f85149;
-  --sidebar: #010409;
-  --sidebar-foreground: #e6edf3;
-  --sidebar-primary: #2f81f7;
+  --secondary: #1F1933;
+  --secondary-foreground: #e4e4e7;
+  --muted: #1F1933;
+  --muted-foreground: #9ca3af;
+  --accent: #2C2347;
+  --accent-foreground: #e4e4e7;
+  --destructive: #ef4444;
+  --border: #2C2347;
+  --separator-border: #2C2347;
+  --input: #0B0914;
+  --ring: #8b5cf6;
+  --chart-1: #8b5cf6;
+  --chart-2: #22c55e;
+  --chart-3: #d946ef;
+  --chart-4: #eab308;
+  --chart-5: #ef4444;
+  --sidebar: #0B0914;
+  --sidebar-foreground: #e4e4e7;
+  --sidebar-primary: #8b5cf6;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #161b22;
-  --sidebar-accent-foreground: #e6edf3;
-  --sidebar-border: #21262d;
-  --sidebar-ring: #8b949e;
+  --sidebar-accent: #1F1933;
+  --sidebar-accent-foreground: #e4e4e7;
+  --sidebar-border: #2C2347;
+  --sidebar-ring: #8b5cf6;
 }
 
 .dark {
-  --background: #09090b; /* Zinc 950 */
+  --background: #0B0914; /* Deep Violet Black */
   --foreground: #e4e4e7; /* Zinc 200 */
-  --card: #09090b;
+  --card: #110E1C; /* Slightly lighter violet black */
   --card-foreground: #e4e4e7;
-  --popover: #09090b;
+  --popover: #110E1C;
   --popover-foreground: #e4e4e7;
-  --primary: #3b82f6; /* Blue 500 */
+  --primary: #8b5cf6; /* Violet 500 */
   --primary-foreground: #ffffff;
-  --secondary: #18181b; /* Zinc 900 */
+  --secondary: #1F1933; /* Dark muted violet */
   --secondary-foreground: #e4e4e7;
-  --muted: #18181b;
-  --muted-foreground: #71717a; /* Zinc 500 */
-  --accent: #18181b;
+  --muted: #1F1933;
+  --muted-foreground: #9ca3af; /* Gray 400 */
+  --accent: #2C2347; /* Brighter accent violet */
   --accent-foreground: #e4e4e7;
   --destructive: #ef4444;
-  --border: #27272a; /* Zinc 800 */
-  --input: #18181b;
-  --separator-border: #27272a;
-  --ring: #3b82f6;
-  --chart-1: #3b82f6;
+  --border: #2C2347; /* Violet borders */
+  --input: #1F1933;
+  --separator-border: #2C2347;
+  --ring: #8b5cf6;
+  --chart-1: #8b5cf6;
   --chart-2: #22c55e;
-  --chart-3: #a855f7;
+  --chart-3: #d946ef; /* Fuchsia */
   --chart-4: #eab308;
   --chart-5: #ef4444;
-  --sidebar: #09090b;
+  --sidebar: #0B0914;
   --sidebar-foreground: #e4e4e7;
-  --sidebar-primary: #3b82f6;
+  --sidebar-primary: #8b5cf6;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #18181b;
+  --sidebar-accent: #1F1933;
   --sidebar-accent-foreground: #e4e4e7;
-  --sidebar-border: #27272a;
-  --sidebar-ring: #3b82f6;
+  --sidebar-border: #2C2347;
+  --sidebar-ring: #8b5cf6;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 }
 

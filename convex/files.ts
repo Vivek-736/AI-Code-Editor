@@ -162,7 +162,7 @@ export const createFile = mutation({
 
         const now = Date.now();
 
-        await ctx.db.insert("files", {
+        const newId = await ctx.db.insert("files", {
             projectId: args.projectId,
             name: args.name,
             content: args.content,
@@ -174,6 +174,8 @@ export const createFile = mutation({
         await ctx.db.patch("projects", args.projectId, {
             updatedAt: now,
         });
+
+        return newId;
     }
 });
 
@@ -211,7 +213,7 @@ export const createFolder = mutation({
 
         const now = Date.now();
 
-        await ctx.db.insert("files", {
+        const newId = await ctx.db.insert("files", {
             projectId: args.projectId,
             name: args.name,
             type: "folder",
@@ -222,6 +224,8 @@ export const createFolder = mutation({
         await ctx.db.patch("projects", args.projectId, {
             updatedAt: now,
         });
+
+        return newId;
     }
 });
 
